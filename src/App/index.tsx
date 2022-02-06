@@ -1,37 +1,56 @@
-import React, { useState } from 'react';
-import Score from 'components/organisms/Score';
+import React, { useEffect, useState } from 'react';
+import Status from 'components/organisms/Status';
 import Board from 'components/organisms/Board';
+import Fail from 'components/organisms/Fail';
 
 const INITIAL_STAGE = 1;
-export const INITIAL_TIME = 15;
+const INITIAL_TIME = 15;
+const INITIAL_SCORE = 0;
 
 const App: React.FC = () => {
+  const [isSuccess, setIsSuccess] = useState(true);
   const [stage, setStage] = useState(INITIAL_STAGE);
   const [second, setSecond] = useState(INITIAL_TIME);
+  const [score, setScore] = useState(INITIAL_SCORE);
 
-  const handleSecond = (value: number) => {
-    setSecond((prev) => prev + value);
-  };
-
-  const handleNextLevel = (value: number) => {
-    setStage((prev) => prev + value);
-  };
-
-  const handleInitialSecond = () => {
+  const handleInitialize = () => {
+    setIsSuccess(true);
     setSecond(INITIAL_TIME);
   };
 
+  const handleNextStage = () => {
+    setStage((prev) => prev + 1);
+    setSecond(INITIAL_TIME);
+  };
+
+  useEffect(() => {
+    const countDown = setInterval(() => {
+      if (second > 0) {
+        setSecond(second - 1);
+      } else {
+        setIsSuccess(false);
+        clearInterval(countDown);
+      }
+    }, 1000);
+
+    return () => clearInterval(countDown);
+  }, [second]);
+
   return (
     <div className="App">
-      <div>
-        <Score
-          handleSecond={handleSecond}
-          handleStage={handleNextLevel}
-          second={second}
-          stage={stage}
-        />
-        <Board />
-      </div>
+      {isSuccess ? (
+        <div>
+          <Status
+            second={second}
+            stage={stage}
+            score={score}
+            handleNextStage={handleNextStage}
+          />
+          <Board />
+        </div>
+      ) : (
+        <Fail handleInitialize={handleInitialize} />
+      )}
     </div>
   );
 };
