@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Div = styled.div<{ bgColor: string }>`
-  width: 120px;
-  height: 120px;
+const Container = styled.div<{ side: number }>`
+  display: grid;
+  grid-template-columns: ${({ side }) => `repeat(${side}, 120px)`};
+  grid-template-rows: ${({ side }) => `repeat(${side}, 120px)`};
+  grid-gap: 5px;
+`;
+
+const Cell = styled.div<{ bgColor: string }>`
+  width: 100%;
+  height: 100%;
   background-color: ${({ bgColor }) => bgColor};
 `;
 
@@ -12,6 +19,9 @@ type Props = {
 };
 
 const Main: React.FC<Props> = ({ stage }) => {
+  //빙고판 한 면의 길이
+  const side = Math.round((stage + 0.5) / 2) + 1;
+
   const r = Math.round(Math.random() * 255);
   const g = Math.round(Math.random() * 255);
   const b = Math.round(Math.random() * 255);
@@ -45,14 +55,13 @@ const Main: React.FC<Props> = ({ stage }) => {
 
   //다른 색상을 하나 끼워넣는다
   colorArray.splice(answerNumber, 1, DIFF_COLOR);
-  console.log(colorArray);
 
   return (
-    <div>
+    <Container side={side}>
       {colorArray.map((color) => (
-        <Div bgColor={color} />
+        <Cell bgColor={color} />
       ))}
-    </div>
+    </Container>
   );
 };
 
