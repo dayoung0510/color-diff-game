@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Status from 'components/organisms/Status';
 import Board from 'components/organisms/Board';
 import Fail from 'components/organisms/Fail';
@@ -18,10 +18,10 @@ const App: React.FC = () => {
     setSecond(INITIAL_TIME);
   };
 
-  const handleNextStage = () => {
+  const handleNextStage = useCallback(() => {
     setStage((prev) => prev + 1);
     setSecond(INITIAL_TIME);
-  };
+  }, []);
 
   useEffect(() => {
     const countDown = setInterval(() => {
@@ -46,7 +46,7 @@ const App: React.FC = () => {
             score={score}
             handleNextStage={handleNextStage}
           />
-          <Board stage={stage} />
+          <Board stage={stage} handleNextStage={handleNextStage} />
         </div>
       ) : (
         <Fail handleInitialize={handleInitialize} />
