@@ -4,7 +4,7 @@ import Board from 'components/organisms/Board';
 import Fail from 'components/organisms/Fail';
 
 const INITIAL_STAGE = 1;
-const INITIAL_TIME = 15;
+const INITIAL_TIME = 15000;
 const INITIAL_SCORE = 0;
 
 const App: React.FC = () => {
@@ -46,7 +46,7 @@ const App: React.FC = () => {
             score={score}
             handleNextStage={handleNextStage}
           />
-          <Board />
+          <Board stage={stage} />
         </div>
       ) : (
         <Fail handleInitialize={handleInitialize} />
