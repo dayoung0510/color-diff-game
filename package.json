@@ -18,12 +18,14 @@
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "http://dayoung0510.github.io/color-diff-game",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build/css": "npx tailwindcss -i src/assets/tailwind.css -o src/assets/main.css"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -44,7 +46,6 @@
     ]
   },
   "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@types/styled-components": "^5.1.22",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
@@ -55,9 +56,9 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "gh-pages": "^3.2.3",
     "postcss": "^8.4.6",
     "prettier-eslint": "^13.0.0",
-    "tailwindcss": "^3.0.18",
     "typescript": "^4.5.5"
   }
 }
