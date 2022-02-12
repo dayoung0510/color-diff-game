@@ -16,4 +16,4 @@ const Status: React.FC<Props> = ({ second, stage, score }) => {
   );
 };
 
-export default Status;
+export default React.memo(Status);
