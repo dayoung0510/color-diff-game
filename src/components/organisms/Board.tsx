@@ -9,7 +9,7 @@ type Props = {
   handleIncorrect: () => void;
 };
 
-const Main: React.FC<Props> = ({ stage, handleCorrect, handleIncorrect }) => {
+const Board: React.FC<Props> = ({ stage, handleCorrect, handleIncorrect }) => {
   const { colorArray, answerNumber } = useCreateColorArray(stage);
 
   //빙고판 한 변의 길이
@@ -32,4 +32,4 @@ const Main: React.FC<Props> = ({ stage, handleCorrect, handleIncorrect }) => {
   );
 };
 
-export default React.memo(Main);
+export default React.memo(Board);

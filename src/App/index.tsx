@@ -32,6 +32,13 @@ const App: React.FC = () => {
     setSecond((prev) => prev - 3);
   }, [setSecond]);
 
+  //오답눌러서 3초깎일때, 남은시간이 음수로 넘어가는 현상 방지를 위해 추가
+  useEffect(() => {
+    if (second < 0) {
+      setIsPlaying(false);
+    }
+  }, [second]);
+
   //정답 클릭 시 스코어 계산
   useEffect(() => {
     if (isClickCorrect) {
