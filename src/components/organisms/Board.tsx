@@ -16,10 +16,11 @@ const Cell = styled.div<{ bgColor: string }>`
 
 type Props = {
   stage: number;
-  handleNextStage: () => void;
+  handleCorrect: () => void;
+  handleIncorrect: () => void;
 };
 
-const Main: React.FC<Props> = ({ stage, handleNextStage }) => {
+const Main: React.FC<Props> = ({ stage, handleCorrect, handleIncorrect }) => {
   //빙고판 한 면의 길이
   const side = Math.round((stage + 0.5) / 2) + 1;
 
@@ -38,7 +39,7 @@ const Main: React.FC<Props> = ({ stage, handleNextStage }) => {
   //배열의 길이(=빙고판의 칸 개수)
   const ARRAY_LENGTH = Math.pow(Math.round((stage + 0.5) / 2) + 1, 2);
 
-  //빈 배열을 메인컬러로 꽉 채움. 투명도는 0.5로 고정
+  //빈 배열을 메인컬러로 꽉 채움
   const colorArray = Array.from(Array(ARRAY_LENGTH)).map(
     (x) => `${MAIN_COLOR}`,
   );
@@ -47,9 +48,9 @@ const Main: React.FC<Props> = ({ stage, handleNextStage }) => {
   const answerNumber = Math.floor(Math.random() * ARRAY_LENGTH);
 
   //DIFF_COLOR의 투명도 차이 (+면 진해지고, -면 연해진다. stage가 올라감에 따라 차이가 줄어든다)
-  const colorGap = 1 / (stage * 3);
+  const colorGap = 1 / (stage * 3) + 0.05;
 
-  //원래 색상보다 진하게해줄지(+), 연하게해줄지(-) 랜덤
+  //메인컬러보다 진하게해줄지(+), 연하게해줄지(-) 랜덤
   const plusOrMinus = Math.round(Math.random()) * 2 - 1;
 
   const DIFF_COLOR = rgabGenerator(colorGap * plusOrMinus);
@@ -59,9 +60,9 @@ const Main: React.FC<Props> = ({ stage, handleNextStage }) => {
 
   const handleAnswer = (idx: number) => {
     if (idx === answerNumber) {
-      handleNextStage();
+      handleCorrect();
     } else {
-      console.log('X');
+      handleIncorrect();
     }
   };
 
