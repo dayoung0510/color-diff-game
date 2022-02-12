@@ -26,7 +26,7 @@ const Main: React.FC<Props> = ({ stage, handleCorrect, handleIncorrect }) => {
   return (
     <Grid side={side}>
       {colorArray.map((color, idx) => (
-        <Cell bgColor={color} onClick={() => handleAnswer(idx)} />
+        <Cell key={idx} bgColor={color} onClick={() => handleAnswer(idx)} />
       ))}
     </Grid>
   );
